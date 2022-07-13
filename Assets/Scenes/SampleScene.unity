@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10
   steerStrength: 2
-  target: {fileID: 1719556516}
+  wanderStrength: 0.2
 --- !u!212 &1226172590
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ public class Ant : MonoBehaviour
 {
     public float maxSpeed = 2;
     public float steerStrength = 2;
-    public Transform target;
+    public float wanderStrength = 1;
 
     private Vector2 position;
     private Vector2 velocity;
@@ -12,7 +12,7 @@ public class Ant : MonoBehaviour
 
     private void Update()
     {
-        desiredDirection = ((Vector2)target.position - position).normalized;
+        desiredDirection = (desiredDirection + Random.insideUnitCircle * wanderStrength).normalized;
 
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - velocity) * steerStrength;
