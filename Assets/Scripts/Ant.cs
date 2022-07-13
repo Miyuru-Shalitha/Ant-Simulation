@@ -1,35 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ant : MonoBehaviour
 {
-    [SerializeField] private float speed = 10.0f;
-    [SerializeField] private float turningAngle = 90.0f;
+    public float maxSpeed = 2;
+    public float steerStrength = 2;
+    public Transform target;
 
-    int count = 0;
-
-    private void Start()
-    {
-        InvokeRepeating("Turn", 0.0f, 1.0f);
-    }
+    private Vector2 position;
+    private Vector2 velocity;
+    private Vector2 desiredDirection;
 
     private void Update()
     {
-        RandomWalk();
-    }
+        desiredDirection = ((Vector2)target.position - position).normalized;
 
-    private void Turn()
-    {
-        float randomAngle = Random.Range(-turningAngle, turningAngle);
+        Vector2 desiredVelocity = desiredDirection * maxSpeed;
+        Vector2 desiredSteeringForce = (desiredVelocity - velocity) * steerStrength;
+        Vector2 acceleration = Vector2.ClampMagnitude(desiredSteeringForce, steerStrength) / 1;
 
-        transform.Rotate(0.0f, 0.0f, randomAngle);
+        velocity = Vector2.ClampMagnitude(velocity + acceleration * Time.deltaTime, maxSpeed);
+        position += velocity * Time.deltaTime;
 
-        Debug.Log($"TURN {++count}, Angle {randomAngle}");
-    }
-
-    private void RandomWalk()
-    {
-        transform.position = transform.position + speed * Time.deltaTime * transform.up;
+        float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        transform.SetPositionAndRotation(position, Quaternion.Euler(0, 0, angle));
     }
 }
