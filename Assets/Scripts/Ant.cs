@@ -1,10 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ant : MonoBehaviour
 {
-    public float maxSpeed = 2;
-    public float steerStrength = 2;
-    public float wanderStrength = 1;
+    [SerializeField] private float maxSpeed = 2.0f;
+    [SerializeField] private float steerStrength = 2.0f;
+    [SerializeField] private float wanderStrength = 1.0f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform head;
+    [SerializeField] private FieldOfView fow;
 
     private Vector2 position;
     private Vector2 velocity;
@@ -19,6 +23,7 @@ public class Ant : MonoBehaviour
         Vector2 acceleration = Vector2.ClampMagnitude(desiredSteeringForce, steerStrength) / 1;
 
         velocity = Vector2.ClampMagnitude(velocity + acceleration * Time.deltaTime, maxSpeed);
+        animator.SetFloat("Blend", velocity.magnitude);
         position += velocity * Time.deltaTime;
 
         float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
