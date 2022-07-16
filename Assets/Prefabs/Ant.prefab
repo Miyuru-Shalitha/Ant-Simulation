@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3028331311308539321}
+  - component: {fileID: 3657721212810252352}
   - component: {fileID: 3028331311308539320}
   m_Layer: 0
   m_Name: Ant
@@ -33,6 +34,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &3657721212810252352
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028331311308539335}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.38, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.17
 --- !u!114 &3028331311308539320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20e18534115b2444899af577ecd033d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 1
   steerStrength: 3
   wanderStrength: 0.1
   animator: {fileID: 3028331311080939761}
@@ -134,9 +151,45 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8474334176464463660, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4754583782370027217, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2073965789717636843, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -1300970908797018460, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Name
       value: Ant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318727472629168220, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531320712878622500, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5106637481657547765, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6239390026406110236, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369917535503260795, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
@@ -192,8 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0654467ef4729459731417a8638867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 1.75
-  viewAngle: 70
+  viewRadius: 2.55
+  viewAngle: 118
   foodLayer:
     serializedVersion: 2
     m_Bits: 128
