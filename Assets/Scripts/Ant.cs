@@ -9,29 +9,40 @@ public class Ant : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform head;
     [SerializeField] private FieldOfView fow;
+    [SerializeField] private LayerMask blockLayer;
+    [SerializeField] private float rayCastDistance = 2.0f;
 
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 desiredDirection;
+    private Vector2 acceleration;
 
     private bool isTargetLocated = false;
     private Transform foodTarget;
 
     private void Update()
     {
-        if (fow.visibleTargets.Count > 0)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, rayCastDistance, blockLayer);
+        if (hit)
         {
-            if (!isTargetLocated)
-            {
-                foodTarget = fow.visibleTargets[0];
-                desiredDirection = (foodTarget.position - transform.position).normalized;
-                isTargetLocated = true;
-                Debug.Log("LOCATED!");
-            }
+            desiredDirection = hit.normal + new Vector2(Random.Range(-0.8f, 0.8f), 0f);
         }
         else
         {
-            desiredDirection = (desiredDirection + Random.insideUnitCircle * wanderStrength).normalized;
+            if (fow.visibleTargets.Count > 0)
+            {
+                if (!isTargetLocated)
+                {
+                    foodTarget = fow.visibleTargets[0];
+                    desiredDirection = (foodTarget.position - transform.position).normalized;
+                    isTargetLocated = true;
+                    Debug.Log("LOCATED!");
+                }
+            }
+            else
+            {
+                desiredDirection = (desiredDirection + Random.insideUnitCircle * wanderStrength).normalized;
+            }
         }
 
         Walk(desiredDirection);
@@ -41,7 +52,7 @@ public class Ant : MonoBehaviour
     {
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - velocity) * steerStrength;
-        Vector2 acceleration = Vector2.ClampMagnitude(desiredSteeringForce, steerStrength) / 1;
+        acceleration = Vector2.ClampMagnitude(desiredSteeringForce, steerStrength) / 1;
 
         velocity = Vector2.ClampMagnitude(velocity + acceleration * Time.deltaTime, maxSpeed);
         animator.SetFloat("Blend", velocity.magnitude);

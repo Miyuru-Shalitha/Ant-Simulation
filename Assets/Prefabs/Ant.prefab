@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3028331311308539321}
   - component: {fileID: 3657721212810252352}
+  - component: {fileID: 1996717124}
   - component: {fileID: 3028331311308539320}
   m_Layer: 0
   m_Name: Ant
@@ -49,7 +50,28 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.38, y: 0}
   serializedVersion: 2
-  m_Radius: 0.17
+  m_Radius: 0.34
+--- !u!50 &1996717124
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028331311308539335}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &3028331311308539320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,12 +84,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20e18534115b2444899af577ecd033d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1
-  steerStrength: 3
-  wanderStrength: 0.1
+  maxSpeed: 3
+  steerStrength: 10
+  wanderStrength: 0.02
   animator: {fileID: 3028331311080939761}
   head: {fileID: 3185811983148042739}
   fow: {fileID: 3028331310083897850}
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  rayCastDistance: 1
 --- !u!1001 &3028331310699539014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0654467ef4729459731417a8638867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 2.55
-  viewAngle: 118
+  viewRadius: 3.31
+  viewAngle: 68
   foodLayer:
     serializedVersion: 2
     m_Bits: 128
