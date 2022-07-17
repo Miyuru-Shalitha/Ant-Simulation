@@ -14,7 +14,7 @@ public class FieldOfView : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("HandleTarget", 0f, 0.5f);
+        InvokeRepeating("HandleTarget", 0f, 0.2f);
     }
 
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)

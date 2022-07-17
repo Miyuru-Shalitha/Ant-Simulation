@@ -11,6 +11,9 @@ public class Ant : MonoBehaviour
     [SerializeField] private FieldOfView fow;
     [SerializeField] private LayerMask blockLayer;
     [SerializeField] private float rayCastDistance = 2.0f;
+    [SerializeField] private GameObject outMark;
+    [SerializeField] private GameObject inMark;
+    [SerializeField] private GameObject marks;
 
     private Vector2 position;
     private Vector2 velocity;
@@ -19,6 +22,13 @@ public class Ant : MonoBehaviour
 
     private bool isTargetLocated = false;
     private Transform foodTarget;
+
+    [SerializeField] private bool hasFood = false;
+
+    private void Start()
+    {
+        InvokeRepeating("Mark", 0f, 0.2f);
+    }
 
     private void Update()
     {
@@ -48,6 +58,16 @@ public class Ant : MonoBehaviour
         Walk(desiredDirection);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Food"))
+        {
+            fow.visibleTargets.Clear();
+            Destroy(collision.gameObject);
+            isTargetLocated = false;
+        }
+    }
+
     private void Walk(Vector2 desiredDirection)
     {
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
@@ -62,13 +82,15 @@ public class Ant : MonoBehaviour
         transform.SetPositionAndRotation(position, Quaternion.Euler(0, 0, angle));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Mark()
     {
-        if (collision.gameObject.CompareTag("Food"))
+        if (hasFood)
         {
-            fow.visibleTargets.Clear();
-            Destroy(collision.gameObject);
-            isTargetLocated = false;
+            Instantiate(inMark, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.identity, marks.transform);
+        }
+        else
+        {
+            Instantiate(outMark, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.identity, marks.transform);
         }
     }
 }
