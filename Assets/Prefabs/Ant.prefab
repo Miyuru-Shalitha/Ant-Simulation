@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3657721212810252352}
   - component: {fileID: 1996717124}
   - component: {fileID: 3028331311308539320}
+  - component: {fileID: 6732972531137734360}
   m_Layer: 0
   m_Name: Ant
   m_TagString: Untagged
@@ -86,7 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   steerStrength: 10
-  wanderStrength: 0.02
+  wanderStrength: 0.1
   animator: {fileID: 3028331311080939761}
   head: {fileID: 3185811983148042739}
   fow: {fileID: 3028331310083897850}
@@ -94,6 +95,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rayCastDistance: 1
+--- !u!114 &6732972531137734360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028331311308539335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5d71fd0e286924f95684b55c1c1b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outMark: {fileID: 4041369225942691822, guid: c98313941c3a48a418ee8e9a6756754e, type: 3}
+  inMark: {fileID: 4041369225942691822, guid: 6cb3a2305871c8f43adc38c99aa806fc, type: 3}
+  marks: {fileID: 0}
+  hasFood: 0
 --- !u!1001 &3028331310699539014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,19 +196,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8474334176464463660, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4754583782370027217, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2073965789717636843, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1300970908797018460, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Name
@@ -199,23 +216,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1318727472629168220, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531320712878622500, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5106637481657547765, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6239390026406110236, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8369917535503260795, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf6bf8996e967c04a9cf81cc8011679c, type: 3}
@@ -273,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 3.31
   viewAngle: 68
-  foodLayer:
+  targetLayer:
     serializedVersion: 2
     m_Bits: 128
   visibleTargets: []

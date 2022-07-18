@@ -11,24 +11,13 @@ public class Ant : MonoBehaviour
     [SerializeField] private FieldOfView fow;
     [SerializeField] private LayerMask blockLayer;
     [SerializeField] private float rayCastDistance = 2.0f;
-    [SerializeField] private GameObject outMark;
-    [SerializeField] private GameObject inMark;
-    [SerializeField] private GameObject marks;
 
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 desiredDirection;
     private Vector2 acceleration;
 
-    private bool isTargetLocated = false;
-    private Transform foodTarget;
-
-    [SerializeField] private bool hasFood = false;
-
-    private void Start()
-    {
-        InvokeRepeating("Mark", 0f, 0.2f);
-    }
+    private GameObject food;
 
     private void Update()
     {
@@ -39,15 +28,9 @@ public class Ant : MonoBehaviour
         }
         else
         {
-            if (fow.visibleTargets.Count > 0)
+            if (fow.nextTarget)
             {
-                if (!isTargetLocated)
-                {
-                    foodTarget = fow.visibleTargets[0];
-                    desiredDirection = (foodTarget.position - transform.position).normalized;
-                    isTargetLocated = true;
-                    Debug.Log("LOCATED!");
-                }
+                desiredDirection = (fow.nextTarget.position - transform.position).normalized;
             }
             else
             {
@@ -63,8 +46,29 @@ public class Ant : MonoBehaviour
         if (collision.gameObject.CompareTag("Food"))
         {
             fow.visibleTargets.Clear();
-            Destroy(collision.gameObject);
-            isTargetLocated = false;
+            
+            if (!fow.hasFood)
+            {
+                //Destroy(collision.gameObject);
+                food = collision.gameObject;
+                food.tag = "Grabbed";
+                food.transform.SetParent(transform, true);
+                food.transform.localPosition = new Vector3(0.65f, 0f, 0f);
+            }
+
+            fow.nextTarget = null;
+            fow.hasFood = true;
+            desiredDirection = -desiredDirection;
+        }
+        else if (collision.gameObject.CompareTag("Out Mark") || collision.gameObject.CompareTag("In Mark"))
+        {
+            fow.nextTarget = null;
+        }
+        else if (collision.gameObject.CompareTag("Home"))
+        {
+            Destroy(food);
+            fow.nextTarget = null;
+            fow.hasFood = false;
         }
     }
 
@@ -80,17 +84,5 @@ public class Ant : MonoBehaviour
 
         float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
         transform.SetPositionAndRotation(position, Quaternion.Euler(0, 0, angle));
-    }
-
-    private void Mark()
-    {
-        if (hasFood)
-        {
-            Instantiate(inMark, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.identity, marks.transform);
-        }
-        else
-        {
-            Instantiate(outMark, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.identity, marks.transform);
-        }
     }
 }

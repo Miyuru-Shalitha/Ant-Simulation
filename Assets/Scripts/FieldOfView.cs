@@ -7,10 +7,13 @@ public class FieldOfView : MonoBehaviour
     public float viewRadius;
     [Range(0f, 360f)]
     public float viewAngle;
-    [SerializeField] private LayerMask foodLayer;
+    [SerializeField] private LayerMask targetLayer;
 
-    [HideInInspector]
-    public List<Transform> visibleTargets = new List<Transform>();
+    [HideInInspector] public List<Transform> visibleTargets = new List<Transform>();
+
+    public Transform nextTarget = null;
+    //public string targetType = null;
+    public bool hasFood = false;
 
     private void Start()
     {
@@ -29,14 +32,48 @@ public class FieldOfView : MonoBehaviour
     private void HandleTarget()
     {
         visibleTargets.Clear();
-        Collider2D[] foodsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, foodLayer);
+        Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, targetLayer);
 
-        foreach (Collider2D food in foodsInViewRadius)
+        foreach (Collider2D target in targetsInViewRadius)
         {
-            Vector2 dirToFood = (food.transform.position - transform.position).normalized;
-            if (Vector2.Angle(transform.up, dirToFood) < viewAngle / 2)
+            Vector2 dirToTarget = (target.transform.position - transform.position).normalized;
+            if (Vector2.Angle(transform.up, dirToTarget) < viewAngle / 2)
             {
-                visibleTargets.Add(food.transform);
+                //if (target.CompareTag("Food"))
+                //{
+                //    visibleTargets.Add(target.transform);
+                //}
+                visibleTargets.Add(target.transform);
+
+                if (!nextTarget)
+                {
+                    if (hasFood)
+                    {
+                        if (target.CompareTag("Home"))
+                        {
+                            nextTarget = target.transform;
+                            //targetType = target.tag;
+                        }
+                        else if (target.CompareTag("Out Mark"))
+                        {
+                            nextTarget = target.transform;
+                            //targetType = target.tag;
+                        }
+                    }
+                    else
+                    {
+                        if (target.CompareTag("Food"))
+                        {
+                            nextTarget = target.transform;
+                            //targetType = target.tag;
+                        }
+                        else if (target.CompareTag("In Mark"))
+                        {
+                            nextTarget = target.transform;
+                            //targetType = target.tag;
+                        }
+                    }
+                }
             }
         }
     }
