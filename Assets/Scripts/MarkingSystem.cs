@@ -11,7 +11,7 @@ public class MarkingSystem : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("Mark", 0f, 0.2f);
+        InvokeRepeating("Mark", 0f, 0.1f);
     }
 
     private void Mark()

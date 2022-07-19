@@ -56,9 +56,12 @@ public class Ant : MonoBehaviour
                 food.transform.localPosition = new Vector3(0.65f, 0f, 0f);
             }
 
+            if (!fow.hasFood)
+            {
+                desiredDirection = -desiredDirection;
+            }
             fow.nextTarget = null;
             fow.hasFood = true;
-            desiredDirection = -desiredDirection;
         }
         else if (collision.gameObject.CompareTag("Out Mark") || collision.gameObject.CompareTag("In Mark"))
         {
@@ -66,6 +69,7 @@ public class Ant : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Home"))
         {
+            desiredDirection = -desiredDirection;
             Destroy(food);
             fow.nextTarget = null;
             fow.hasFood = false;

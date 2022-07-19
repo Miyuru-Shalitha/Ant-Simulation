@@ -8,12 +8,15 @@ public class FieldOfView : MonoBehaviour
     [Range(0f, 360f)]
     public float viewAngle;
     [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private Transform home;
 
     [HideInInspector] public List<Transform> visibleTargets = new List<Transform>();
 
     public Transform nextTarget = null;
     //public string targetType = null;
     public bool hasFood = false;
+
+    private List<Transform> outMarks = new List<Transform>();
 
     private void Start()
     {
@@ -56,8 +59,10 @@ public class FieldOfView : MonoBehaviour
                         }
                         else if (target.CompareTag("Out Mark"))
                         {
-                            nextTarget = target.transform;
+                            //nextTarget = target.transform;
                             //targetType = target.tag;
+
+                            outMarks.Add(target.transform);
                         }
                     }
                     else
@@ -76,5 +81,20 @@ public class FieldOfView : MonoBehaviour
                 }
             }
         }
+
+        float minDistance = float.PositiveInfinity;
+
+        foreach (Transform outMark in outMarks)
+        {
+            float distOutMarkToHome = Vector2.Distance(home.position, outMark.position);
+
+            if (distOutMarkToHome < minDistance)
+            {
+                minDistance = distOutMarkToHome;
+                nextTarget = outMark;
+            }
+        }
+
+        outMarks.Clear();
     }
 }
