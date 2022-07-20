@@ -70,6 +70,8 @@ public class Ant : MonoBehaviour
         else if (collision.gameObject.CompareTag("Home"))
         {
             desiredDirection = -desiredDirection;
+            //acceleration = Vector2.zero;
+            velocity = Vector2.zero;
             Destroy(food);
             fow.nextTarget = null;
             fow.hasFood = false;

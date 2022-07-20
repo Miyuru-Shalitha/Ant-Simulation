@@ -17,6 +17,7 @@ public class FieldOfView : MonoBehaviour
     public bool hasFood = false;
 
     private List<Transform> outMarks = new List<Transform>();
+    private List<Transform> inMarks = new List<Transform>();
 
     private void Start()
     {
@@ -74,27 +75,49 @@ public class FieldOfView : MonoBehaviour
                         }
                         else if (target.CompareTag("In Mark"))
                         {
-                            nextTarget = target.transform;
+                            //nextTarget = target.transform;
                             //targetType = target.tag;
+
+                            inMarks.Add(target.transform);
                         }
                     }
                 }
             }
         }
 
-        float minDistance = float.PositiveInfinity;
-
-        foreach (Transform outMark in outMarks)
+        if (hasFood)
         {
-            float distOutMarkToHome = Vector2.Distance(home.position, outMark.position);
+            float minDistance = float.PositiveInfinity;
 
-            if (distOutMarkToHome < minDistance)
+            foreach (Transform outMark in outMarks)
             {
-                minDistance = distOutMarkToHome;
-                nextTarget = outMark;
-            }
-        }
+                float distOutMarkToHome = Vector2.Distance(home.position, outMark.position);
 
-        outMarks.Clear();
+                if (distOutMarkToHome < minDistance)
+                {
+                    minDistance = distOutMarkToHome;
+                    nextTarget = outMark;
+                }
+            }
+
+            outMarks.Clear();
+        }
+        else
+        {
+            float maxDistance = float.NegativeInfinity;
+
+            foreach (Transform inMark in inMarks)
+            {
+                float distInMarkToHome = Vector2.Distance(home.position, inMark.position);
+
+                if (distInMarkToHome > maxDistance)
+                {
+                    maxDistance = distInMarkToHome;
+                    nextTarget = inMark;
+                }
+            }
+
+            inMarks.Clear();
+        }
     }
 }

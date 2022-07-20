@@ -143,4 +143,4 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  evaporationStrength: 0.02
+  evaporationStrength: 0.05

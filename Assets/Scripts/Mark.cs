@@ -15,6 +15,8 @@ public class Mark : MonoBehaviour
         InvokeRepeating("Evaporate", 0.5f, 0.2f);
     }
 
+
+
     private void Evaporate()
     {
         if (gradientValue < 0.1f)
